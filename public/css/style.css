@@ -1,0 +1,167 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+} 
+body
+{
+    font-family: 'Poppins',sans-serif;
+    background-color: rgb(7, 26, 51);
+    color: #fff;
+    align-items: center;
+    min-height: 100vh;
+}
+header{
+    font-size: 1.2em;
+}
+header,form{
+    justify-content: center;
+    align-items: center;
+    min-height: 20vh;
+    display: flex;
+}
+form input,form button{
+    padding: 0.6em;
+    font-size: 2rem;
+    border: none;
+    background: #fff;
+}
+form button:hover{
+    background-color: coral;
+    color: #fff;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+.todo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.todo-list{
+    width: 70vh;
+    list-style: none;
+}
+.todo{
+    margin: 0.5rem;
+    background-color: #fff;
+    color:rgb(7, 26, 51) ;
+    font-size: 1.5em;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+.todo-item{
+    padding: 1.0rem;
+    font-size: 0.8rem;
+}
+.todo li{
+    flex: 1;
+}
+.trash-btn,.completed-btn{
+    background-color: coral;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.completed-btn{
+    background: darkcyan;
+}
+.completed-btn:hover{
+    background: rgb(1, 98, 98);
+    transition: all 0.5 ease-in;
+}
+.fa-trash,.fa-check{
+    pointer-events: none;
+}
+.del-fade{
+    transform: translateX(-10rem);
+    opacity: 0;
+}
+.completed{
+    /* transform: translateX(8rem); */
+    opacity: 0.5;
+    color: #fffdfd9a;
+    background-color: darkcyan;
+}
+.all{
+    border: 1px solid rgb(60, 160, 102);
+}
+.complete{
+    border: 1px solid cyan;
+}
+.uncomplete{
+    border: 1px solid coral;}
+.container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+
+}
+.pills{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+}
+.pill{
+    text-align: center;
+    font-size: 10pt;
+    min-width:25vh;
+    /* height: 5vh; */
+    cursor: pointer;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding: 0.8rem;
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+.pill::after{
+    content: "0";
+    color: coral;
+    position: absolute;
+    font-weight: 600;
+    background-color: #fff;
+    top: 0;
+    padding: 0.8rem;
+    right: 0;
+    pointer-events: none; 
+}
+@media all and (max-width:560px){
+    
+form input,form button{
+    padding: 0.6em;
+    font-size: 1rem;
+    border: none;
+    background: #fff;
+}
+form button:hover{
+    background-color: coral;
+    color: #fff;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+    .container{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+    
+    }
+    .todo-container{
+        order: 1;
+    }
+    .delete-container{
+        order: 2;
+    }
+    .completed-container{
+        order: 3;
+    }
+}
