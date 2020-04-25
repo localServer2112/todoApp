@@ -15,7 +15,7 @@ filterAll.addEventListener('click',filterTodo);
 filterDone.addEventListener('click',filterTodo);
 filterUndone.addEventListener('click',filterTodo);
 // Functions
-function addTodo(event){
+async function addTodo(event){
     event.preventDefault();// prevent from submitting
     // todo div
     const todoDiv = document.createElement("div");
@@ -25,29 +25,44 @@ function addTodo(event){
     if (todoInput.value === "") {
         alert("Cannot add empty todo");
     } else {
-        // create Li
-        const newTodo = document.createElement("li");
-        newTodo.innerText = todoInput.value;
-
-
-        // use the fetch API to add the todo to the database using the API endpoint...
-
-
-        newTodo.classList.add("todo-item");
-        todoDiv.appendChild(newTodo);
         // check mark buttons
         const completedBtn = document.createElement("button");
         completedBtn.innerHTML= '<i class="fa fa-check"></i>';
         completedBtn.classList.add("completed-btn");
-        todoDiv.appendChild(completedBtn);
-        // 
+        // tash btn
         const trashBtn = document.createElement("button");
         trashBtn.innerHTML= '<i class="fa fa-trash"></i>';
         trashBtn.classList.add("trash-btn");
-        todoDiv.appendChild(trashBtn);
-        // append all to list
-        todoList.appendChild(todoDiv);
-        todoInput.value = "";
+        // create Li
+        const newTodo = document.createElement("li");
+        newTodo.innerText = todoInput.value;
+        newTodo.classList.add("todo-item");
+        // use the fetch API to add the todo to the database using the API endpoint...
+        const data = {
+            title : todoInput.value
+        }       
+        const todoOption = {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+        };
+        const response = await fetch('/todo',todoOption);
+        const resData = response.json();
+        // return resData;
+        if (resData.status === 200) {
+            todoDiv.appendChild(newTodo)
+            
+            todoDiv.appendChild(completedBtn)
+            
+            todoDiv.appendChild(trashBtn)
+            // append all to list
+            todoList.appendChild(todoDiv)
+            todoInput.value = "";
+        }
+        
+//      end fetchAPI post data
 
     }
 } 
@@ -60,7 +75,19 @@ function deleteSelected(evt){
         todo.classList.add("del-fade");
 
 // use the fetchApi to delete the selected itm..
-
+ // use the fetch API to add the todo to the database using the API endpoint...
+ const data = {
+    title : todoInput.value
+}       
+const todoOption = {
+    method : 'POST',
+    headers : {
+        'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(data)
+};
+fetch('/todo',todoOption);
+//      end fetchAPI post data
         todo.addEventListener("transitionend",()=>{ // execute after transition ends
             
            todo.remove();

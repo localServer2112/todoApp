@@ -2,6 +2,8 @@ const express = require('express'); //import express
 const app = express(); //execute express
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
+const cors = require('cors');
+var path = require('path');
 require('dotenv/config');
 
 
@@ -9,11 +11,14 @@ require('dotenv/config');
 // a middleware is a function that runs when you hit a route.
 app.use(bodyparser.json())
 // use the express-static middleware
-app.use(express.static("public"))
+app.use(express.static("public"));
+// use cors
+app.use(cors())
 // Routes
-app.get('/', (req,res) =>{
-    res.send('We are home');
-})
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+    console.log(path)
+});
 
 const todoRoute = require('./routes/todo');
 

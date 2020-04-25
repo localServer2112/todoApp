@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ automatic405: true });
 const Todo = require('../model/Todo');
 
 
@@ -45,7 +45,8 @@ router.post('/',async (req,res) => {
     });
     try{
     const savedTodo = await todo.save();
-    res.status(200).json(savedTodo);
+    return res.status(200).json(savedTodo);
+    console.log(savedTodo);
     }
     catch(err){
         res.json({
