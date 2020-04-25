@@ -1,4 +1,4 @@
-
+// (use 'esversion: 6');
 // selectors
 const todoInput = document.querySelector('.todo-input');
 const todoBtn = document.querySelector('.todo-btn');
@@ -14,11 +14,49 @@ todoList.addEventListener('click',deleteSelected);
 filterAll.addEventListener('click',filterTodo);
 filterDone.addEventListener('click',filterTodo);
 filterUndone.addEventListener('click',filterTodo);
+window.addEventListener('load',getAllTodos);
 // Functions
-async function addTodo(event){
+
+async function getAllTodos(option) 
+{
+  let response = await fetch(`http://todo-app2112.herokuapp.com/todos`);
+  let data = await response.json();
+  data.then(_data => {
+    _data.map((el) => {
+        createTodoItem(el);
+    });
+}
+)}
+
+function createTodoItem(params) {
+         // todo div
+         const todoDiv = document.createElement("div");
+         todoDiv.classList.add('todo');
+         // check mark buttons
+         const completedBtn = document.createElement("button");
+         completedBtn.innerHTML= '<i class="fa fa-check"></i>';
+         completedBtn.classList.add("completed-btn");
+         // tash btn
+         const trashBtn = document.createElement("button");
+         trashBtn.innerHTML= '<i class="fa fa-trash"></i>';
+         trashBtn.classList.add("trash-btn");
+         // create Li
+         const newTodo = document.createElement("li");
+         newTodo.innerText = params;
+         newTodo.classList.add("todo-item");
+         todoDiv.appendChild(newTodo);
+         
+         todoDiv.appendChild(completedBtn);
+         
+         todoDiv.appendChild(trashBtn);
+         // append all to list
+         todoList.appendChild(todoDiv);
+         console.log('fetched all...')
+}
+
+
+function addTodo(event){
     event.preventDefault();// prevent from submitting
-    
-    
     
     if (todoInput.value === "") {
         alert("Cannot add empty todo");
@@ -36,10 +74,10 @@ async function addTodo(event){
             body : JSON.stringify(data)
         };
         const response = await fetch('/todos',todoOption);
-        const resData = response.json();
-        console.log(resData);
-        if (resData.status === 200) {
-            // todo div
+        const resData = await response.json();
+        resData.then(data => {
+            data.map((el) => {
+                // todo div
             const todoDiv = document.createElement("div");
             todoDiv.classList.add('todo');
             // check mark buttons
@@ -54,16 +92,18 @@ async function addTodo(event){
             const newTodo = document.createElement("li");
             newTodo.innerText = todoInput.value;
             newTodo.classList.add("todo-item");
-            todoDiv.appendChild(newTodo)
+            todoDiv.appendChild(newTodo);
             
-            todoDiv.appendChild(completedBtn)
+            todoDiv.appendChild(completedBtn);
             
-            todoDiv.appendChild(trashBtn)
+            todoDiv.appendChild(trashBtn);
             // append all to list
-            todoList.appendChild(todoDiv)
+            todoList.appendChild(todoDiv);
             todoInput.value = "";
-            console.log('todo added')
-        }
+            console.log('todo added');  
+            })
+            });
+            
         
 //      end fetchAPI post data
 
