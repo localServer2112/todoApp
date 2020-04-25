@@ -77,12 +77,16 @@ async function addTodo(event){
             body : JSON.stringify(data)
         };
         const response = await fetch('/todos',todoOption);
-        const resData = await response.json();
-        resData.then(data => {
-            getAllTodos()
-            todoInput.value = "";
-            console.log('todo added');  
-            })
+        const resData = await response.json()
+        .then(
+                _data => {
+                    getAllTodos('data')
+                    todoInput.value = "";
+                    console.log('done adding...')
+                   }
+               )
+              // return data;
+        
             
         
 //      end fetchAPI post data
