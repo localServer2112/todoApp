@@ -17,26 +17,13 @@ filterUndone.addEventListener('click',filterTodo);
 // Functions
 async function addTodo(event){
     event.preventDefault();// prevent from submitting
-    // todo div
-    const todoDiv = document.createElement("div");
-    todoDiv.classList.add('todo');
+    
     
     
     if (todoInput.value === "") {
         alert("Cannot add empty todo");
     } else {
-        // check mark buttons
-        const completedBtn = document.createElement("button");
-        completedBtn.innerHTML= '<i class="fa fa-check"></i>';
-        completedBtn.classList.add("completed-btn");
-        // tash btn
-        const trashBtn = document.createElement("button");
-        trashBtn.innerHTML= '<i class="fa fa-trash"></i>';
-        trashBtn.classList.add("trash-btn");
-        // create Li
-        const newTodo = document.createElement("li");
-        newTodo.innerText = todoInput.value;
-        newTodo.classList.add("todo-item");
+        
         // use the fetch API to add the todo to the database using the API endpoint...
         const data = {
             title : todoInput.value
@@ -52,6 +39,21 @@ async function addTodo(event){
         const resData = response.json();
         // return resData;
         if (resData.status === 200) {
+            // todo div
+            const todoDiv = document.createElement("div");
+            todoDiv.classList.add('todo');
+            // check mark buttons
+            const completedBtn = document.createElement("button");
+            completedBtn.innerHTML= '<i class="fa fa-check"></i>';
+            completedBtn.classList.add("completed-btn");
+            // tash btn
+            const trashBtn = document.createElement("button");
+            trashBtn.innerHTML= '<i class="fa fa-trash"></i>';
+            trashBtn.classList.add("trash-btn");
+            // create Li
+            const newTodo = document.createElement("li");
+            newTodo.innerText = todoInput.value;
+            newTodo.classList.add("todo-item");
             todoDiv.appendChild(newTodo)
             
             todoDiv.appendChild(completedBtn)
@@ -60,6 +62,7 @@ async function addTodo(event){
             // append all to list
             todoList.appendChild(todoDiv)
             todoInput.value = "";
+            console.log('todo added')
         }
         
 //      end fetchAPI post data
