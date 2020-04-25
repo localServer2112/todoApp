@@ -48,7 +48,7 @@ async function addTodo(event){
             },
             body : JSON.stringify(data)
         };
-        const response = await fetch('/todo',todoOption);
+        const response = await fetch('/todos',todoOption);
         const resData = response.json();
         // return resData;
         if (resData.status === 200) {
