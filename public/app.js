@@ -37,7 +37,7 @@ async function addTodo(event){
         };
         const response = await fetch('/todos',todoOption);
         const resData = response.json();
-        // return resData;
+        console.log(resData);
         if (resData.status === 200) {
             // todo div
             const todoDiv = document.createElement("div");
