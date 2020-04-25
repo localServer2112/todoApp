@@ -20,13 +20,16 @@ window.addEventListener('load',getAllTodos);
 async function getAllTodos(option) 
 {
   let response = await fetch(`http://todo-app2112.herokuapp.com/todos`);
-  let data = await response.json();
-  data.then(_data => {
-    _data.map((el) => {
-        createTodoItem(el);
-    });
+  let data = await response.json()
+.then(
+     _data => {
+        _data.map((el) => {
+            createTodoItem(el.title);
+        });
+        }
+    )
+    return data;
 }
-)}
 
 function createTodoItem(params) {
          // todo div
