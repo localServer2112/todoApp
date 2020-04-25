@@ -55,7 +55,7 @@ function createTodoItem(params) {
 }
 
 
-function addTodo(event){
+async function addTodo(event){
     event.preventDefault();// prevent from submitting
     
     if (todoInput.value === "") {
@@ -76,7 +76,6 @@ function addTodo(event){
         const response = await fetch('/todos',todoOption);
         const resData = await response.json();
         resData.then(data => {
-            data.map((el) => {
                 // todo div
             const todoDiv = document.createElement("div");
             todoDiv.classList.add('todo');
@@ -102,7 +101,6 @@ function addTodo(event){
             todoInput.value = "";
             console.log('todo added');  
             })
-            });
             
         
 //      end fetchAPI post data
@@ -182,12 +180,12 @@ function filterTodo(e){
                     console.log("All Todos")
                     break;
                 case 'Completed':
-                    let gh = []
-                    let vr = todo.classList.values();
-                    for (const value of vr) {
-                        gh.push(value);
-                    }
-                    console.log(gh)
+                    // let gh = []
+                    // let vr = todo.classList.values();
+                    // for (const value of vr) {
+                    //     gh.push(value);
+                    // }
+                    // console.log(gh)
                     // console.log(todo.classList.add('d-none'))
 
                     // if(todo.classList.value === "completed"){
@@ -199,10 +197,10 @@ function filterTodo(e){
                     break;
                 case 'Uncompleted':
                     
-                    console.log("Undone Todos")
+                    console.log("Undone Todos");
                     break;
                 }
-    })
+    });
         
     //     }
     //     if(el.classList.contains("all")){
