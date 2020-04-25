@@ -28,7 +28,7 @@ async function getAllTodos(option)
         });
         }
     )
-    return data;
+   // return data;
 }
 
 function createTodoItem(params) {
@@ -79,28 +79,7 @@ async function addTodo(event){
         const response = await fetch('/todos',todoOption);
         const resData = await response.json();
         resData.then(data => {
-                // todo div
-            const todoDiv = document.createElement("div");
-            todoDiv.classList.add('todo');
-            // check mark buttons
-            const completedBtn = document.createElement("button");
-            completedBtn.innerHTML= '<i class="fa fa-check"></i>';
-            completedBtn.classList.add("completed-btn");
-            // tash btn
-            const trashBtn = document.createElement("button");
-            trashBtn.innerHTML= '<i class="fa fa-trash"></i>';
-            trashBtn.classList.add("trash-btn");
-            // create Li
-            const newTodo = document.createElement("li");
-            newTodo.innerText = todoInput.value;
-            newTodo.classList.add("todo-item");
-            todoDiv.appendChild(newTodo);
-            
-            todoDiv.appendChild(completedBtn);
-            
-            todoDiv.appendChild(trashBtn);
-            // append all to list
-            todoList.appendChild(todoDiv);
+            getAllTodos()
             todoInput.value = "";
             console.log('todo added');  
             })
