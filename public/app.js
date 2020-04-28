@@ -19,7 +19,7 @@ window.addEventListener('load',getAllTodos);
 
 async function getAllTodos(limit) 
 {
-  let response = await fetch(`http://todo-app2112.herokuapp.com/todos:${limit}`);
+  let response = await fetch(`http://todo-app2112.herokuapp.com/todos`);
   let data = await response.json()
 .then(
      _data => {
