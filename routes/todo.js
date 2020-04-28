@@ -17,8 +17,9 @@ router.get('/', async (req, res)=>{
 // get uncompleted todos 
 router.get('/uncompleted', async (req,res)=>{
     try {
-        const uncompleted = await Todo.find({status:"Undone"});
-        res.json(uncompleted)
+        const uncompleted = await Todo.find({status:"Undone"}, (err,undone_todos) =>{
+            if (err) return res.status(500).send(err)
+            return res.status(200).send(undone_todos);})
     } catch (error) {
         res.json({
             message : err
