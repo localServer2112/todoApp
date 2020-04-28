@@ -81,15 +81,15 @@ router.delete('/:id', async (req,res) => {
 router.patch('/', async (req,res) => {
     // update the todo based on ID
     try {
-        Todo.findOneAndUpdate({_id:req.params.id}, req.body, function (err, todo) {
+        const updateTodo = Todo.findOneAndUpdate({_id:req.params._id}, req.body, function (err, todo) {
             if (err) {
                 return res.status(500).send(err);
             }
             res.send(todo);
           });
-            // res.json(updateTodo);
+            res.json(updateTodo);
     } catch (error) {
-        res.send(error);
+        res.json({message : error});
 
     }
     
