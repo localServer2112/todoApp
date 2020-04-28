@@ -78,17 +78,19 @@ router.delete('/:id', async (req,res) => {
     }
 })
 
-router.patch('/:todoId', async (req,res) => {
+router.patch('/', async (req,res) => {
     // update the todo based on ID
     try {
-        const updateTodo = await Todo.updateOne(
-            {_id: req.params.todoId},
-            {$set : {status : req.body.status}
-        }
-            );
-            res.json(updateTodo);
+        Todo.findOneAndUpdate({_id:req.params.id}, req.body, function (err, todo) {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.send(todo);
+          });
+            // res.json(updateTodo);
     } catch (error) {
-        
+        res.send(error);
+
     }
     
 })

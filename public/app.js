@@ -67,7 +67,8 @@ async function addTodo(event){
         
         // use the fetch API to add the todo to the database using the API endpoint...
         const data = {
-            title : todoInput.value
+            todo_id : generate_id(),
+            title : todoInput.value,
         }       
         const todoOption = {
             method : 'POST',
@@ -82,7 +83,7 @@ async function addTodo(event){
                 _data => {
                     getAllTodos('data')
                     todoInput.value = "";
-                    console.log('done adding...')
+                    alert('added successfully')
                    }
                )
               // return data;
@@ -197,4 +198,8 @@ function filterTodo(e){
     //     }
        
     // })
+}
+
+function generate_id(){
+    return Math.random().toString(36).substring(2, 15);
 }
