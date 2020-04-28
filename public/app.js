@@ -17,9 +17,9 @@ filterUndone.addEventListener('click',filterTodo);
 window.addEventListener('load',getAllTodos);
 // Functions
 
-async function getAllTodos(option) 
+async function getAllTodos(limit) 
 {
-  let response = await fetch(`http://todo-app2112.herokuapp.com/todos`);
+  let response = await fetch(`http://todo-app2112.herokuapp.com/todos:${limit}`);
   let data = await response.json()
 .then(
      _data => {
