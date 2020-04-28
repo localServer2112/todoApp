@@ -29,8 +29,9 @@ router.get('/uncompleted', async (req,res)=>{
 // get completed todos 
 router.get('/completed', async (req,res)=>{
     try {
-        const completed = await Todo.find({status:"Done"})
-        res.json(completed)
+        const completed = await Todo.find({status:"Done"}, (err,done_todos) =>{
+            if (err) return res.status(500).send(err)
+            return res.status(200).send(done_todos);})
     } catch (error) {
         res.json({
             message : err
