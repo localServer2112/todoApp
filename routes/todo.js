@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router({ automatic405: true });
 const Todo = require('../model/Todo');
 
-
+// get all Todos => working
 router.get('/', async (req, res)=>{
     try {
         const todos = await Todo.find();
@@ -14,7 +14,7 @@ router.get('/', async (req, res)=>{
     }
 })
 
-// get uncompleted todos 
+// get uncompleted todos => working
 router.get('/uncompleted', async (req,res)=>{
     try {
         const uncompleted = await Todo.find({status:"Undone"}, (err,undone_todos) =>{
@@ -27,7 +27,7 @@ router.get('/uncompleted', async (req,res)=>{
     }
 })
 
-// get completed todos 
+// get completed todos  => working
 router.get('/completed', async (req,res)=>{
     try {
         const completed = await Todo.find({status:"Done"}, (err,done_todos) =>{
@@ -40,15 +40,16 @@ router.get('/completed', async (req,res)=>{
     }
 })
 
+// post to db => working
 router.post('/',async (req,res) => {
     // using the model, we create a new Todo
     const todo = new Todo({
+        todo_id : req.body.id,
         title : req.body.title,
     });
     try{
     const savedTodo = await todo.save();
     return res.status(200).json(savedTodo);
-    console.log(savedTodo);
     }
     catch(err){
         res.json({
