@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const TodoSchema = mongoose.Schema({ 
+    todo_id : {
+        type: String
+    },
     title : {
         type: String
     },
