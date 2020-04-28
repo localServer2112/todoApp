@@ -59,11 +59,6 @@ router.post('/',async (req,res) => {
     
 })
 
-router.post('/delete', function(req, res, next) {
- var id = req.body._id;
- UserData.findByIdAndRemove(id).exec();
- res.redirect('/');
-});
 
 router.delete('/:id', async (req,res) => {
     try {
@@ -74,24 +69,51 @@ router.delete('/:id', async (req,res) => {
     } catch (err) {
         res.json({
             message : err
-        })
+        });
     }
-})
+});
 
-router.patch('/', async (req,res) => {
+
+
+
+router.put('/update', async (req,res) => {
     // update the todo based on ID
-    try {
-        const updateTodo = Todo.findOneAndUpdate({_id:req.params._id}, req.body, function (err, todo) {
-            if (err) {
-                return res.status(500).send(err);
-            }
-            res.send(todo);
-          });
-            res.json(updateTodo);
-    } catch (error) {
-        res.json({message : error});
+    // Find the existing resource by ID
+    Todo.findByIdAndUpdate(
+        // the id of the item to find
+        req.params.todoId,
+        
+        // the change to be made. Mongoose will smartly combine your existing 
+        // document with this change, which allows for partial updates too
+        req.body,
+        
+        // an option that asks mongoose to return the updated version 
+        // of the document instead of the pre-updated one.
+        {new: true},
+        
+        // the callback function
+        (err, todo) => {
+        // Handle any possible database errors
+            if (err) return res.status(500).send(err);
+            return res.send(todo);
+        }
+    )
 
-    }
+
+
+
+    // try {
+    //     const updateTodo = Todo.findOneAndUpdate({_id:req.params._id}, req.body, function (err, todo) {
+    //         if (err) {
+    //             return res.status(500).send(err);
+    //         }
+    //         res.send(todo);
+    //       });
+    //         res.json(updateTodo);
+    // } catch (error) {
+    //     res.json({message : error});
+
+    // }
     
 })
 // router.post('/', (req,res) => {
