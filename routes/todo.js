@@ -79,9 +79,6 @@ router.delete('/:id', async (req,res) => {
 
 router.put('/', async (req,res) => {
     // update the todo based on ID
-    var query = { name: 'borne' };
-    Model.findOneAndUpdate(query, { name: 'jason bourne' }, options, callback)
-
     // Find the existing resource by ID
     const updateTodoStatus = Todo.findOneAndUpdate(
         // the id of the item to find
