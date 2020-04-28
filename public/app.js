@@ -80,11 +80,13 @@ async function addTodo(event){
         const resData = await response.json()
         .then(
                 _data => {
-                    getAllTodos('data')
                     todoInput.value = "";
                     alert('added successfully')
+                    
+                    
                    }
                )
+               getAllTodos('data');
               // return data;
         
             
