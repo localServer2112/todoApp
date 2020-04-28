@@ -85,7 +85,7 @@ router.put('/', async (req,res) => {
     // Find the existing resource by ID
     const updateTodoStatus = Todo.findOneAndUpdate(
         // the id of the item to find
-        {title:req.params.title},
+        req.params.title,
         
         // the change to be made. Mongoose will smartly combine your existing 
         // document with this change, which allows for partial updates too
