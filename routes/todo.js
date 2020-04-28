@@ -63,7 +63,7 @@ router.post('/',async (req,res) => {
 router.delete('/', async (req,res) => {
 // The "todo" in this callback function represents the document that was found.
 // It allows you to pass a reference back to the client in case they need a reference for some reason.
-Todo.findOneAndRemove(req.params.id, (err, todo) => {
+Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
     // As always, handle any potential errors:
     if (err) {
         return res.status(500).send(err);
