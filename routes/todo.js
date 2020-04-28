@@ -76,12 +76,12 @@ router.delete('/:id', async (req,res) => {
 
 
 
-router.put('/update', async (req,res) => {
+router.put('/', async (req,res) => {
     // update the todo based on ID
     // Find the existing resource by ID
-    Todo.findByIdAndUpdate(
+    const updateTodo = Todo.findByIdAndUpdate(
         // the id of the item to find
-        req.params._id,
+        {_id:req.params._id},
         
         // the change to be made. Mongoose will smartly combine your existing 
         // document with this change, which allows for partial updates too
@@ -95,9 +95,9 @@ router.put('/update', async (req,res) => {
         (err, todo) => {
         // Handle any possible database errors
             if (err) return res.status(500).send(err);
-            return res.send(todo);
+            return res.json(todo);
         }
-    )
+    );
 
 
 
