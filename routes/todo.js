@@ -66,7 +66,7 @@ router.delete('/', async (req,res) => {
 Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
     // As always, handle any potential errors:
     if (err) {
-        return res.status(500).send(err);
+        return res.status(500).send({message : err});
     }
     // We'll create a simple object to send back with a message and the id of the document that was removed
     // You can really do this however you want, though.
