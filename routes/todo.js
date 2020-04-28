@@ -3,9 +3,9 @@ const router = express.Router({ automatic405: true });
 const Todo = require('../model/Todo');
 
 // get all Todos => working
-router.get('/', async (req, res)=>{
+router.get('/:lim', async (req, res)=>{
     try {
-        const todos = await Todo.find().limit(10).
+        const todos = await Todo.find().limit(lim).
         sort('-date_added');
         res.json(todos);
     } catch (error) {
