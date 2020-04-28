@@ -5,7 +5,8 @@ const Todo = require('../model/Todo');
 // get all Todos => working
 router.get('/', async (req, res)=>{
     try {
-        const todos = await Todo.find();
+        const todos = await Todo.find().limit(10).
+        sort('-date_added');
         res.json(todos);
     } catch (error) {
         res.json({
@@ -78,14 +79,17 @@ router.delete('/:id', async (req,res) => {
 
 router.put('/', async (req,res) => {
     // update the todo based on ID
+    var query = { name: 'borne' };
+    Model.findOneAndUpdate(query, { name: 'jason bourne' }, options, callback)
+
     // Find the existing resource by ID
-    const updateTodo = Todo.findByIdAndUpdate(
+    const updateTodoStatus = Todo.findOneAndUpdate(
         // the id of the item to find
-        {_id:req.params._id},
+        {title:req.params.title},
         
         // the change to be made. Mongoose will smartly combine your existing 
         // document with this change, which allows for partial updates too
-        req.body,
+        { status: req.body.status },
         
         // an option that asks mongoose to return the updated version 
         // of the document instead of the pre-updated one.
