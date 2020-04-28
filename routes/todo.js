@@ -56,6 +56,12 @@ router.post('/',async (req,res) => {
     
 })
 
+router.post('/delete', function(req, res, next) {
+ var id = req.body._id;
+ UserData.findByIdAndRemove(id).exec();
+ res.redirect('/');
+});
+
 router.delete('/:todoId', async (req,res) => {
     try {
         const removeTodo = await Todo.remove({
