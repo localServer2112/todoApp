@@ -119,7 +119,7 @@ async function addTodo(event){
     }
 } 
 
-async function deleteSelected(evt){
+function deleteSelected(evt){
     const item = evt.target;
     // delete todo
     if(item.classList[0] === "trash-btn"){
@@ -128,20 +128,27 @@ async function deleteSelected(evt){
         console.log();
         // use the fetchApi to delete the selected itm..
         // use the fetch API to add the todo to the database using the API endpoint...
-        const data = {
-            title : todo.childNodes[0].innerText
-        }       
+        // const data = {
+        //     title : todo.childNodes[0].innerText
+        // }       
         const todoOption = {
             method : 'DELETE',
         };
-        await (await fetch('/todos'+todo.childNodes[0].innerText,todoOption)).json().then(
-            todo.addEventListener("transitionend",() =>{ // execute after transition ends
-                todo.remove();
-                })
-        );
-        //      end fetchAPI delete data
+        let data = todo.childNodes[0].innerText;
+        console.log(data.toString());
         
+            fetch('/todos'+ data, {method: 'DELETE',
+            })
+            .then(
+                // todo.addEventListener("transitionend",() =>{// execute after transition ends
+                todo.remove()
+                // })
+            )
+            .catch(err => console.log(err))
+
+        //      end fetchAPI delete data
     }
+    
     // complete todo
     if(item.classList[0] === "completed-btn"){
         const todo = item.parentElement;
@@ -158,22 +165,22 @@ function delTodo(todo){
         newTodo.innerText = todo;
         todoDiv.appendChild(newTodo);
         
-    console.log(todoDiv)
+    console.log(todoDiv);
         // append all to list
         delList.appendChild(todoDiv);
     
 } 
 function doneTodo(todo){
     // todo div
-    const todoDiv = document.createElement("div");
+    var todoDiv = document.createElement("div");
     todoDiv.classList.add('todo');
         // create Li
-        const newTodo = document.createElement("li");
+        var newTodo = document.createElement("li");
         newTodo.classList.add("todo-item");
         newTodo.innerText = todo;
         todoDiv.appendChild(newTodo);
         
-    console.log(todoDiv)
+    console.log(todoDiv);
         // append all to list
         doneList.appendChild(todoDiv);
 }   
