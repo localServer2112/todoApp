@@ -116,7 +116,7 @@ async function deleteSelected(evt){
         // use the fetchApi to delete the selected itm..
         // use the fetch API to add the todo to the database using the API endpoint...
         const data = {
-            title : todo.childNodes[0].innerText
+            title : todo.childNodes[0].innerText,
         }       
         const todoOption = {
             method : 'DELETE',
@@ -168,49 +168,49 @@ function doneTodo(todo){
     console.log(todoDiv)
         // append all to list
         doneList.appendChild(todoDiv);
-    
-} 
-function filterTodo(e){
-    // console.log(e.target.innerText)
-    const todos = todoList.childNodes;
-    todos.forEach((todo)=>{
-            switch(e.target.innerText){
-                case 'All':
-                    console.log("All Todos")
-                    break;
-                case 'Completed':
-                    // let gh = []
-                    // let vr = todo.classList.values();
-                    // for (const value of vr) {
-                    //     gh.push(value);
-                    // }
-                    // console.log(gh)
-                    // console.log(todo.classList.add('d-none'))
+}   
+// } 
+// function filterTodo(e){
+//     // console.log(e.target.innerText)
+//     const todos = todoList.childNodes;
+//     todos.forEach((todo)=>{
+//             switch(e.target.innerText){
+//                 case 'All':
+//                     console.log("All Todos")
+//                     break;
+//                 case 'Completed':
+//                     // let gh = []
+//                     // let vr = todo.classList.values();
+//                     // for (const value of vr) {
+//                     //     gh.push(value);
+//                     // }
+//                     // console.log(gh)
+//                     // console.log(todo.classList.add('d-none'))
 
-                    // if(todo.classList.value === "completed"){
-                    //     todo.style.display = 'flex';
-                    // }else
-                    // {
-                    //     todo.style.display = 'none';
-                    // }
-                    break;
-                case 'Uncompleted':
+//                     // if(todo.classList.value === "completed"){
+//                     //     todo.style.display = 'flex';
+//                     // }else
+//                     // {
+//                     //     todo.style.display = 'none';
+//                     // }
+//                     break;
+//                 case 'Uncompleted':
                     
-                    console.log("Undone Todos");
-                    break;
-                }
-    });
+//                     console.log("Undone Todos");
+//                     break;
+//                 }
+//     });
         
-    //     }
-    //     if(el.classList.contains("all")){
-    //         console.log(el.innerText)
-    //     }
-    //     if(el.classList.contains("uncomplete")){
-    //         console.log(el.innerText)
-    //     }
+//     //     }
+//     //     if(el.classList.contains("all")){
+//     //         console.log(el.innerText)
+//     //     }
+//     //     if(el.classList.contains("uncomplete")){
+//     //         console.log(el.innerText)
+//     //     }
        
-    // })
-}
+//     // })
+// }
 
 function generate_id(){
     return Math.random().toString(36).substring(2, 15);
