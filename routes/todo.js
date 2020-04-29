@@ -80,7 +80,7 @@ router.post('/',async (req,res) => {
 router.delete('/:title', async (req,res) => {
 Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
     if (err) {
-        return res.status(500).send({message : err});
+        return res.status(500).send({message : "Cannot find todo..."});
     }
     const response = {
         message: "Todo successfully deleted",
@@ -92,7 +92,7 @@ Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
 
 
 
-router.put('/', async (req,res) => {
+router.put('/:title', async (req,res) => {
     // update the todo based on ID
     // Find the existing resource by ID
     const updateTodoStatus = Todo.findOneAndUpdate(
