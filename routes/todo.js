@@ -78,7 +78,7 @@ router.post('/',async (req,res) => {
 // });
 // });
 router.delete('/:todos', async (req,res) => {
-    Todo.findOneAndRemove({title:req.query.title}, (err, todo) => {
+    Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
         if (err) {
             return res.status(500).send({message : err});
         }
