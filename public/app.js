@@ -125,7 +125,7 @@ async function deleteSelected(evt){
             },
             body : JSON.stringify(data)
         };
-        await (await fetch(`/todo/${todo.childNodes[0].innerText}`,todoOption)).json()
+        await (await fetch('/todos',todoOption)).json()
         .then(
             todo.addEventListener("transitionend",()=>{ // execute after transition ends
                 todo.remove();

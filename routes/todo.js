@@ -79,7 +79,7 @@ router.post('/',async (req,res) => {
 router.delete('/:title', async (req,res) => {
 Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
     if (err) {
-        return res.status(500).send({message : "Cannot find todo..."});
+        return res.status(404).send({message : "Ooops, Cannot find todo..."});
     }
     const response = {
         message: "Todo successfully deleted",
