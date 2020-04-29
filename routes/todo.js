@@ -20,7 +20,7 @@ router.get('/', async (req, res)=>{
 
 router.get('/:limit', async (req, res)=>{
     try {
-        const todos = await Todo.find().limit(req.params.limit).
+        const todos = await Todo.find().limit(parseInt(req.params.limit)).
         sort('-date_added');
         res.json(todos);
     } catch (error) {
