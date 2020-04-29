@@ -11,9 +11,9 @@ const filterUndone = document.querySelector('.uncomplete');
 // Event Listeners
 todoBtn.addEventListener('click', addTodo);
 todoList.addEventListener('click',deleteSelected);
-filterAll.addEventListener('click',filterTodo);
-filterDone.addEventListener('click',filterTodo);
-filterUndone.addEventListener('click',filterTodo);
+// filterAll.addEventListener('click',filterTodo);
+// filterDone.addEventListener('click',filterTodo);
+// filterUndone.addEventListener('click',filterTodo);
 window.addEventListener('load',getAllTodos);
 // Functions
 
