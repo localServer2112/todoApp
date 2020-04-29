@@ -20,15 +20,9 @@ window.addEventListener('load',getAllTodos);
 async function getAllTodos(limit) 
 {
   let response = await fetch(`http://todo-app2112.herokuapp.com/todos`);
-  let data = await response.json()
-.then(
-     _data => {
-        _data.map((el) => {
-            createTodoItem(el.title);
-        });
-        }
-    )
-   // return data;
+  let data = await response.json();
+
+   return data;
 }
 
 async function getLastTodo(){
@@ -39,6 +33,10 @@ async function getLastTodo(){
             createTodoItem(el.title);
         });
         })
+}
+
+async function setAllFilter(){
+    // getAllTodos
 }
 
 function createTodoItem(params) {
@@ -96,7 +94,13 @@ async function addTodo(event){
                     
                    }
                )
-               getLastTodo();
+               getLastTodo().then(
+                _data => {
+                   _data.map((el) => {
+                       createTodoItem(el.title);
+                   });
+                   }
+               )
               // return data;
         
             
@@ -127,11 +131,11 @@ async function deleteSelected(evt){
         };
         await (await fetch('/todos',todoOption)).json()
         .then(
-            todo.addEventListener("transitionend",()=>{ // execute after transition ends
+            todo.addEventListener("transitionend",() =>{ // execute after transition ends
                 todo.remove();
                 })
         );
-//      end fetchAPI post data
+        //      end fetchAPI delete data
         
     }
     // complete todo
