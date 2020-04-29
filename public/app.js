@@ -14,15 +14,24 @@ todoList.addEventListener('click',deleteSelected);
 // filterAll.addEventListener('click',filterTodo);
 // filterDone.addEventListener('click',filterTodo);
 // filterUndone.addEventListener('click',filterTodo);
-window.addEventListener('load',getAllTodos);
+window.addEventListener('load',showTodos);
 // Functions
 
-async function getAllTodos(limit) 
+async function getAllTodos() 
 {
   let response = await fetch(`http://todo-app2112.herokuapp.com/todos`);
   let data = await response.json();
-
    return data;
+}
+
+function showTodos(){
+    getAllTodos().then(
+        _data => {
+           _data.map((el) => {
+               createTodoItem(el.title);
+           });
+           }
+       )
 }
 
 async function getLastTodo(){
@@ -120,17 +129,12 @@ async function deleteSelected(evt){
         // use the fetchApi to delete the selected itm..
         // use the fetch API to add the todo to the database using the API endpoint...
         const data = {
-            title : todo.childNodes[0].innerText,
+            title : todo.childNodes[0].innerText
         }       
         const todoOption = {
             method : 'DELETE',
-            headers : {
-                'Content-Type' : 'application/json'
-            },
-            body : JSON.stringify(data)
         };
-        await (await fetch('/todos',todoOption)).json()
-        .then(
+        await (await fetch('/todos'+todo.childNodes[0].innerText,todoOption)).json().then(
             todo.addEventListener("transitionend",() =>{ // execute after transition ends
                 todo.remove();
                 })
