@@ -31,6 +31,16 @@ async function getAllTodos(limit)
    // return data;
 }
 
+async function getLastTodo(){
+    await (await fetch(`http://todo-app2112.herokuapp.com/todos/1`)).json()
+    .then(
+        _data => {
+        _data.map((el) => {
+            createTodoItem(el.title);
+        });
+        })
+}
+
 function createTodoItem(params) {
          // todo div
          const todoDiv = document.createElement("div");
@@ -86,7 +96,7 @@ async function addTodo(event){
                     
                    }
                )
-               getAllTodos('data');
+               getLastTodo();
               // return data;
         
             
