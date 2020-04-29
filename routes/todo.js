@@ -5,7 +5,7 @@ const Todo = require('../model/Todo');
 // get all Todos => working
 router.get('/', async (req, res)=>{
     try {
-        const todos = await Todo.find().limit(10).
+        const todos = await Todo.find().
         sort('-date_added');
         res.json(todos);
     } catch (error) {
@@ -14,6 +14,22 @@ router.get('/', async (req, res)=>{
         });
     }
 })
+
+// get some Todos
+// @params == limit
+
+router.get('/:limit', async (req, res)=>{
+    try {
+        const todos = await Todo.find().limit(req.params.limit).
+        sort('-date_added');
+        res.json(todos);
+    } catch (error) {
+        res.json({
+            message : error
+        });
+    }
+})
+
 
 // get uncompleted todos => working
 router.get('/uncompleted', async (req,res)=>{
@@ -58,25 +74,8 @@ router.post('/',async (req,res) => {
     }
     
 })
-
-
-// router.delete('/:title', async (req,res) => {
-// // The "todo" in this callback function represents the document that was found.
-// // It allows you to pass a reference back to the client in case they need a reference for some reason.
-// Todo.findOneAndDelete({title:req.params.title}, (err, todo) => {
-//     // As always, handle any potential errors:
-//     if (err) {
-//         return res.status(500).send({message : err});
-//     }
-//     // We'll create a simple object to send back with a message and the id of the document that was removed
-//     // You can really do this however you want, though.
-//     const response = {
-//         message: "Todo successfully deleted",
-//         id: todo._id
-//     };
-//     return res.status(200).send(response);
-// });
-// });
+// delete route
+// @params : Todo title
 router.delete('/:title', async (req,res) => {
 Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
     if (err) {
@@ -91,7 +90,8 @@ Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
 });
 
 
-
+// update route
+// @params : Todo title
 router.put('/:title', async (req,res) => {
     // update the todo based on ID
     // Find the existing resource by ID
