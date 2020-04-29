@@ -119,7 +119,7 @@ async function addTodo(event){
     }
 } 
 
-function deleteSelected(evt){
+async function deleteSelected(evt){
     const item = evt.target;
     // delete todo
     if(item.classList[0] === "trash-btn"){
@@ -137,7 +137,7 @@ function deleteSelected(evt){
         let data = todo.childNodes[0].innerText;
         console.log(data.toString());
         
-            fetch('/todos'+ data, {method: 'DELETE',
+            await fetch('/todos'+ data, {method: 'DELETE',
             })
             .then(
                 // todo.addEventListener("transitionend",() =>{// execute after transition ends
@@ -151,8 +151,24 @@ function deleteSelected(evt){
     
     // complete todo
     if(item.classList[0] === "completed-btn"){
-        const todo = item.parentElement;
-        todo.classList.toggle("completed");
+        const data = {
+            status : "Done",
+        }       
+        const todoOption = {
+            method : 'PUT',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+        };
+        const response = await fetch('/todos',todoOption);
+        await response.json().
+        then(
+            _dat => {
+                const todo = item.parentElement;
+                todo.classList.toggle("completed")
+            }
+        );
     }
 }
 function delTodo(todo){
