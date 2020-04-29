@@ -106,32 +106,33 @@ async function addTodo(event){
     }
 } 
 
-function deleteSelected(evt){
+async function deleteSelected(evt){
     const item = evt.target;
     // delete todo
     if(item.classList[0] === "trash-btn"){
         const todo = item.parentElement;
         todo.classList.add("del-fade");
-
-// use the fetchApi to delete the selected itm..
- // use the fetch API to add the todo to the database using the API endpoint...
- const data = {
-    title : todoInput.value
-}       
-const todoOption = {
-    method : 'POST',
-    headers : {
-        'Content-Type' : 'application/json'
-    },
-    body : JSON.stringify(data)
-};
-fetch('/todo',todoOption);
+        console.log();
+        // use the fetchApi to delete the selected itm..
+        // use the fetch API to add the todo to the database using the API endpoint...
+        const data = {
+            title : todo.childNodes[0].innerText
+        }       
+        const todoOption = {
+            method : 'DELETE',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+        };
+        await (await fetch(`/todo/${todo.childNodes[0].innerText}`,todoOption)).json()
+        .then(
+            todo.addEventListener("transitionend",()=>{ // execute after transition ends
+                todo.remove();
+                })
+        );
 //      end fetchAPI post data
-        todo.addEventListener("transitionend",()=>{ // execute after transition ends
-            
-           todo.remove();
-            
-        })
+        
     }
     // complete todo
     if(item.classList[0] === "completed-btn"){
