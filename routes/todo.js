@@ -77,18 +77,18 @@ router.post('/',async (req,res) => {
 //     return res.status(200).send(response);
 // });
 // });
-router.delete('/:todos', async (req,res) => {
-    Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
-        if (err) {
-            return res.status(500).send({message : err});
-        }
-        const response = {
-            message: "Todo successfully deleted",
-            id: todo._id
-        };
-        return res.status(200).send(response);
-    });
-    });
+router.delete('/:title', async (req,res) => {
+Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
+    if (err) {
+        return res.status(500).send({message : err});
+    }
+    const response = {
+        message: "Todo successfully deleted",
+        id: todo._id
+    };
+    return res.status(200).send(response);
+});
+});
 
 
 
