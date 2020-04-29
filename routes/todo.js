@@ -60,7 +60,7 @@ router.post('/',async (req,res) => {
 })
 
 
-router.delete('/:title', async (req,res) => {
+router.delete('/', async (req,res) => {
 // The "todo" in this callback function represents the document that was found.
 // It allows you to pass a reference back to the client in case they need a reference for some reason.
 Todo.findOneAndDelete({title:req.query.title}, (err, todo) => {
