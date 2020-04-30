@@ -36,6 +36,7 @@ form button:hover{
     display: flex;
     justify-content: center;
     align-items: center;
+    width:80%;
 }
 .todo-list{
     width: 70vh;
@@ -160,7 +161,11 @@ form button:hover{
         margin: auto;
     }
     .todo-container{
-        order: 1;
+        order: 1;display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        width: 80%;
     }
     .delete-container{
         order: 2;
