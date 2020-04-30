@@ -42,7 +42,7 @@ async function getLastTodo(){
     await (await fetch(`http://todo-app2112.herokuapp.com/todos/1`)).json()
     .then(
         _data => {
-            createTodoItem(_data.title);
+            createTodoItem(_data.title,"uncompleted");
         });
 }
 
@@ -102,8 +102,6 @@ async function addTodo(event){
                 _data => {
                     todoInput.value = "";
                     alert('added successfully');
-                    
-                    
                    }
                );
                getLastTodo();
