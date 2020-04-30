@@ -28,7 +28,11 @@ function showTodos(){
     getAllTodos().then(
         _data => {
            _data.map((el) => {
-               createTodoItem(el.title);
+               if (el.status == "Done") {
+                   createTodoItem(el.title,"completed");
+               }else{
+               createTodoItem(el.title,"");
+               }
            });
            }
        );
@@ -38,9 +42,7 @@ async function getLastTodo(){
     await (await fetch(`http://todo-app2112.herokuapp.com/todos/1`)).json()
     .then(
         _data => {
-        _data.map((el) => {
             createTodoItem(el.title);
-        });
         });
 }
 
@@ -48,10 +50,11 @@ async function setAllFilter(){
     // getAllTodos
 }
 
-function createTodoItem(params) {
+function createTodoItem(text,todo_class) {
          // todo div
          const todoDiv = document.createElement("div");
          todoDiv.classList.add('todo');
+         todoDiv.classList.add(todo_class);
          // check mark buttons
          const completedBtn = document.createElement("button");
          completedBtn.innerHTML= '<i class="fa fa-check"></i>';
@@ -62,7 +65,7 @@ function createTodoItem(params) {
          trashBtn.classList.add("trash-btn");
          // create Li
          const newTodo = document.createElement("li");
-         newTodo.innerText = params;
+         newTodo.innerText = text;
          newTodo.classList.add("todo-item");
          todoDiv.appendChild(newTodo);
          
@@ -103,13 +106,7 @@ async function addTodo(event){
                     
                    }
                );
-               getLastTodo().then(
-                _data => {
-                   _data.map((el) => {
-                       createTodoItem(el.title);
-                   });
-                   }
-               );
+               getLastTodo();
               // return data;
         
             
