@@ -99,7 +99,7 @@ async function addTodo(event){
     if (todoInput.value === "") {
         alert("Cannot add empty todo");
     } else {
-        createTodoItem(todoInput.value,"uncompleted");
+        createTodoItem(todoInput.value,"completed");
         // use the fetch API to add the todo to the database using the API endpoint...
         const data = {
             title : todoInput.value,
