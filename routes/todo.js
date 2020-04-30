@@ -92,19 +92,13 @@ Todo.findOneAndRemove({title:req.params.title}, (err, todo) => {
 
 // update route
 // @params : Todo title
-router.put('/:title', async (req,res) => {
+router.put('/', async (req,res) => {
     // update the todo based on ID
     // Find the existing resource by ID
     const updateTodoStatus = Todo.findOneAndUpdate(
-        // the id of the item to find
-        req.params.title,
-        
-        // the change to be made. Mongoose will smartly combine your existing 
-        // document with this change, which allows for partial updates too
+        // the title of the item to find
+        req.body.title,
         { status: req.body.status },
-        
-        // an option that asks mongoose to return the updated version 
-        // of the document instead of the pre-updated one.
         {new: true},
         
         // the callback function
