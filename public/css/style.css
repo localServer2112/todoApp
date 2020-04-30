@@ -157,6 +157,7 @@ form button:hover{
         align-items: center;
         flex-direction: column;
         width: 80%;
+        margin: auto;
     }
     .todo-container{
         order: 1;

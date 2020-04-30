@@ -1,4 +1,8 @@
-// (use 'esversion: 6');
+// variables
+let allTodos = 0;
+    let undone = 0;
+    let done = 0;
+
 // selectors
 const todoInput = document.querySelector('.todo-input');
 const todoBtn = document.querySelector('.todo-btn');
@@ -16,7 +20,11 @@ todoList.addEventListener('click',deleteSelected);
 // filterUndone.addEventListener('click',filterTodo);
 window.addEventListener('load',showTodos);
 // Functions
-
+function setTodoValues(){
+    filterAll.setAttribute('data-content', allTodos);
+    filterUndone.setAttribute('data-content', undone);
+    filterDone.setAttribute('data-content', done);
+}
 async function getAllTodos() 
 {
   let response = await fetch(`http://todo-app2112.herokuapp.com/todos`);
@@ -25,9 +33,7 @@ async function getAllTodos()
 }
 
 function showTodos(){
-    let allTodos = 0;
-    let undone = 0;
-    let done = 0;
+    
     getAllTodos().then(
         _data => {
            _data.map((el) => {
@@ -40,9 +46,9 @@ function showTodos(){
                createTodoItem(el.title,"uncompleted");
                }
            });
-           filterAll.setAttribute('data-content', allTodos);
-           filterUndone.setAttribute('data-content', undone);
-           filterDone.setAttribute('data-content', done);
+           setTimeout(() => {
+            setTodoValues();
+          }, 2000);
            }
        );
 }
@@ -110,7 +116,11 @@ async function addTodo(event){
         .then(
                 _data => {
                     todoInput.value = "";
-                    alert('added successfully');
+                    allTodos++;
+                    undone++;
+                    setTimeout(() => {
+                        setTodoValues();
+                      }, 1000);
                    }
                );
                getLastTodo();
@@ -134,17 +144,23 @@ async function deleteSelected(evt){
     // delete todo
     if(item.classList[0] === "trash-btn"){
         const todo = item.parentElement;
-        console.log();
+        if (todo.classList.contains('completed')) {
+            done--;
+        }else
+        if (todo.classList.contains('uncompleted')) {
+            undone--;
+        }
+        
         // use the fetchApi to delete the selected itm..
-        // use the fetch API to add the todo to the database using the API endpoint...
-        // const data = {
-        //     title : 
-        // }       
        deleteItem(todo.childNodes[0].innerText)
         .then((el) => {
             todo.classList.add("del-fade"),
             todo.addEventListener("transitionend",() =>{// execute after transition ends
                 todo.remove();
+                allTodos--;
+                setTimeout(() => {
+                    setTodoValues();
+                  }, 2000);
                 });
             }
        );  
