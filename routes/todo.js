@@ -97,7 +97,7 @@ router.put('/', async (req,res) => {
     // Find the existing resource by ID
     const updateTodoStatus = Todo.findOneAndUpdate(
         // the title of the item to find
-        req.body.title,
+        {title : req.body.title},
         { status: req.body.status },
         {new: true},
         
