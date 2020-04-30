@@ -54,7 +54,11 @@ function showTodos(){
 }
 
 async function getLastTodo(){
-    return await (await fetch(`http://todo-app2112.herokuapp.com/todos/1`)).json()
+    await (await fetch(`http://todo-app2112.herokuapp.com/todos/1`)).json().then(
+        _data => {
+            console.log(_data.title);
+            createTodoItem(_data.title,"uncompleted");
+        });
     
 }
 
@@ -118,11 +122,7 @@ async function addTodo(event){
                     undone++;
                     setTimeout(() => {
                         setTodoValues();
-                        getLastTodo().then(
-                            _data => {
-                                console.log(_data.title);
-                                createTodoItem(_data.title,"uncompleted");
-                            });
+                        getLastTodo();
                       }, 1000);
                    }
                );
