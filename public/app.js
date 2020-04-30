@@ -31,7 +31,7 @@ function showTodos(){
                if (el.status == "Done") {
                    createTodoItem(el.title,"completed");
                }else{
-               createTodoItem(el.title,"");
+               createTodoItem(el.title," ");
                }
            });
            }
