@@ -57,6 +57,7 @@ async function getLastTodo(){
     await (await fetch(`http://todo-app2112.herokuapp.com/todos/1`)).json()
     .then(
         _data => {
+            console.log(_data);
             createTodoItem(_data.title,"uncompleted");
         });
 }
@@ -99,7 +100,7 @@ async function addTodo(event){
     if (todoInput.value === "") {
         alert("Cannot add empty todo");
     } else {
-        createTodoItem(todoInput.value,"completed");
+        // createTodoItem(todoInput.value,"completed");
         // use the fetch API to add the todo to the database using the API endpoint...
         const data = {
             title : todoInput.value,
@@ -115,12 +116,13 @@ async function addTodo(event){
         const resData = await response.json()
         .then(
                 _data => {
-                    getLastTodo();
+                    
                     todoInput.value = "";
                     allTodos++;
                     undone++;
                     setTimeout(() => {
                         setTodoValues();
+                        getLastTodo();
                       }, 1000);
                    }
                );
