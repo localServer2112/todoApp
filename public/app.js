@@ -31,7 +31,7 @@ function showTodos(){
                createTodoItem(el.title);
            });
            }
-       )
+       );
 }
 
 async function getLastTodo(){
@@ -41,7 +41,7 @@ async function getLastTodo(){
         _data.map((el) => {
             createTodoItem(el.title);
         });
-        })
+        });
 }
 
 async function setAllFilter(){
@@ -71,7 +71,7 @@ function createTodoItem(params) {
          todoDiv.appendChild(trashBtn);
          // append all to list
          todoList.appendChild(todoDiv);
-         console.log('fetched all...')
+         console.log('fetched all...');
 }
 
 
@@ -85,7 +85,7 @@ async function addTodo(event){
         // use the fetch API to add the todo to the database using the API endpoint...
         const data = {
             title : todoInput.value,
-        }       
+        }     ;  
         const todoOption = {
             method : 'POST',
             headers : {
@@ -98,18 +98,18 @@ async function addTodo(event){
         .then(
                 _data => {
                     todoInput.value = "";
-                    alert('added successfully')
+                    alert('added successfully');
                     
                     
                    }
-               )
+               );
                getLastTodo().then(
                 _data => {
                    _data.map((el) => {
                        createTodoItem(el.title);
                    });
                    }
-               )
+               );
               // return data;
         
             
@@ -118,56 +118,57 @@ async function addTodo(event){
 
     }
 } 
-
+async function deleteItem(_title){
+    let data = _title.toString();
+    const del_item = await fetch('/todos/'+ data,
+     {method: 'DELETE',
+    });
+    return del_item;
+}
 async function deleteSelected(evt){
     const item = evt.target;
     // delete todo
     if(item.classList[0] === "trash-btn"){
         const todo = item.parentElement;
-        todo.classList.add("del-fade");
         console.log();
         // use the fetchApi to delete the selected itm..
         // use the fetch API to add the todo to the database using the API endpoint...
         // const data = {
-        //     title : todo.childNodes[0].innerText
+        //     title : 
         // }       
-        const todoOption = {
-            method : 'DELETE',
-        };
-        let data = todo.childNodes[0].innerText;
-        console.log(data.toString());
-        
-            await fetch('/todos'+ data, {method: 'DELETE',
-            })
-            .then(
-                // todo.addEventListener("transitionend",() =>{// execute after transition ends
-                todo.remove()
-                // })
-            )
-            .catch(err => console.log(err))
-
+       deleteItem(todo.childNodes[0].innerText)
+        .then((el) => {
+            todo.classList.add("del-fade"),
+            todo.addEventListener("transitionend",() =>{// execute after transition ends
+                todo.remove();
+                });
+            }
+       );  
         //      end fetchAPI delete data
     }
     
     // complete todo
     if(item.classList[0] === "completed-btn"){
-        const data = {
+        var todo = item.parentElement;
+        var data = {
             status : "Done",
-        }       
-        const todoOption = {
+            title : todo.childNodes[0].innerText,
+        };       
+        var todoOption = {
             method : 'PUT',
             headers : {
                 'Content-Type' : 'application/json'
             },
             body : JSON.stringify(data)
         };
-        const response = await fetch('/todos',todoOption);
+        var response = await fetch('/todos',todoOption);
         await response.json().
-        then(
-            _dat => {
-                const todo = item.parentElement;
-                todo.classList.toggle("completed")
-            }
+        then( (el)=>{
+             const todo = item.parentElement;
+            todo.classList.toggle("completed");
+        }
+               
+            
         );
     }
 }
@@ -185,64 +186,7 @@ function delTodo(todo){
         // append all to list
         delList.appendChild(todoDiv);
     
-} 
-function doneTodo(todo){
-    // todo div
-    var todoDiv = document.createElement("div");
-    todoDiv.classList.add('todo');
-        // create Li
-        var newTodo = document.createElement("li");
-        newTodo.classList.add("todo-item");
-        newTodo.innerText = todo;
-        todoDiv.appendChild(newTodo);
-        
-    console.log(todoDiv);
-        // append all to list
-        doneList.appendChild(todoDiv);
-}   
-// } 
-// function filterTodo(e){
-//     // console.log(e.target.innerText)
-//     const todos = todoList.childNodes;
-//     todos.forEach((todo)=>{
-//             switch(e.target.innerText){
-//                 case 'All':
-//                     console.log("All Todos")
-//                     break;
-//                 case 'Completed':
-//                     // let gh = []
-//                     // let vr = todo.classList.values();
-//                     // for (const value of vr) {
-//                     //     gh.push(value);
-//                     // }
-//                     // console.log(gh)
-//                     // console.log(todo.classList.add('d-none'))
-
-//                     // if(todo.classList.value === "completed"){
-//                     //     todo.style.display = 'flex';
-//                     // }else
-//                     // {
-//                     //     todo.style.display = 'none';
-//                     // }
-//                     break;
-//                 case 'Uncompleted':
-                    
-//                     console.log("Undone Todos");
-//                     break;
-//                 }
-//     });
-        
-//     //     }
-//     //     if(el.classList.contains("all")){
-//     //         console.log(el.innerText)
-//     //     }
-//     //     if(el.classList.contains("uncomplete")){
-//     //         console.log(el.innerText)
-//     //     }
-       
-//     // })
-// }
-
+}
 function generate_id(){
     return Math.random().toString(36).substring(2, 15);
 }
