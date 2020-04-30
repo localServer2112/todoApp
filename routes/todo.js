@@ -76,8 +76,10 @@ router.post('/',async (req,res) => {
 })
 // delete route
 // @params : Todo title
-router.delete('/', async (req,res) => {
-Todo.findOneAndRemove({title:req.body.title}, (err, todo) => {
+router.delete('/:title', async (req,res) => {
+Todo.findOneAndRemove(
+    {title:req.params.title},
+    (err, todo) => {
     if (err) {
         return res.status(404).send({message : "Ooops, Cannot find todo..."});
     }
