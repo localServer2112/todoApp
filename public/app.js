@@ -115,6 +115,7 @@ async function addTodo(event){
         const resData = await response.json()
         .then(
                 _data => {
+                    getLastTodo();
                     todoInput.value = "";
                     allTodos++;
                     undone++;
@@ -123,7 +124,7 @@ async function addTodo(event){
                       }, 1000);
                    }
                );
-               getLastTodo();
+               
               // return data;
         
             
