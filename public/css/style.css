@@ -82,9 +82,12 @@ form button:hover{
 }
 .completed{
     /* transform: translateX(8rem); */
-    opacity: 0.5;
-    color: #fffdfd9a;
+    opacity: 0.7;
+    color: #fffdfdda;
     background-color: darkcyan;
+}
+.uncompleted{
+    border: 1px solid #fffdfdda;
 }
 .all{
     border: 1px solid rgb(60, 160, 102);
