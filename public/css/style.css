@@ -127,7 +127,7 @@ form button:hover{
     overflow: hidden;
 }
 .pill::after{
-    content: "0";
+    content: attr(data-content);
     color: coral;
     position: absolute;
     font-weight: 600;
@@ -156,7 +156,7 @@ form button:hover{
         justify-content: space-around;
         align-items: center;
         flex-direction: column;
-    
+        width: 80%;
     }
     .todo-container{
         order: 1;

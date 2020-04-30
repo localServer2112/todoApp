@@ -25,15 +25,24 @@ async function getAllTodos()
 }
 
 function showTodos(){
+    let allTodos = 0;
+    let undone = 0;
+    let done = 0;
     getAllTodos().then(
         _data => {
            _data.map((el) => {
+               allTodos++; //count all todos
                if (el.status == "Done") {
+                   done++; //count done todos
                    createTodoItem(el.title,"completed");
                }else{
+                   undone++; //count undone todos
                createTodoItem(el.title,"uncompleted");
                }
            });
+           filterAll.setAttribute('data-content', allTodos);
+           filterUndone.setAttribute('data-content', undone);
+           filterDone.setAttribute('data-content', done);
            }
        );
 }
